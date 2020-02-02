@@ -7,6 +7,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
 class UserFixtures extends Fixture
 {
+    public const USER_REFERENCE = 'user';
+
     public function load(ObjectManager $manager)
     {
         for ($i=1; $i<=10; $i++)
@@ -23,10 +25,12 @@ class UserFixtures extends Fixture
                   ->setPromo($i + 1985)
                   ->setRegisterDate(new \DateTime())
                   ->setEntered(new \DateTime())
-                  ->setAssoPosition("loutre énervée n°$i")
-                  ->setRoles();
+                  ->setAssoPosition("loutre énervée n°$i");
             $manager->persist($user);
         }
         $manager->flush();
+
+        // other fixtures can get this object using the UserFixtures::USER_REFERENCE constant
+        $this->addReference(self::USER_REFERENCE, $user);
     }
 }

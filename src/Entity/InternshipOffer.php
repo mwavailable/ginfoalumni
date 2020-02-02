@@ -48,7 +48,7 @@ class InternshipOffer
     private $addedBy;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $file;
 

@@ -44,13 +44,13 @@ class Event
     private $end;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $addedBy;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User")
      */
     private $attendees;
 
@@ -124,12 +124,12 @@ class Event
         return $this;
     }
 
-    public function getAddedBy(): ?user
+    public function getAddedBy(): ?User
     {
         return $this->addedBy;
     }
 
-    public function setAddedBy(?user $addedBy): self
+    public function setAddedBy(?User $addedBy): self
     {
         $this->addedBy = $addedBy;
 
@@ -137,14 +137,14 @@ class Event
     }
 
     /**
-     * @return Collection|user[]
+     * @return Collection|User[]
      */
     public function getAttendees(): Collection
     {
         return $this->attendees;
     }
 
-    public function addAttendee(user $attendee): self
+    public function addAttendee(User $attendee): self
     {
         if (!$this->attendees->contains($attendee)) {
             $this->attendees[] = $attendee;
@@ -153,7 +153,7 @@ class Event
         return $this;
     }
 
-    public function removeAttendee(user $attendee): self
+    public function removeAttendee(User $attendee): self
     {
         if ($this->attendees->contains($attendee)) {
             $this->attendees->removeElement($attendee);

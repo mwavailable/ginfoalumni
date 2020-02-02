@@ -5,7 +5,8 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Event;
-class EventFixtures extends Fixture
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+class EventFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -13,7 +14,7 @@ class EventFixtures extends Fixture
         {
             $event = new Event();
             $event ->setDescription("description")
-                   ->setAddedBy()
+                   ->setAddedBy($this->getReference(UserFixtures::USER_REFERENCE))
                    ->setEnd(new \DateTime())
                    ->setLocation("le Foys")
                    ->setName("name n°$i")
@@ -22,5 +23,11 @@ class EventFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+    public function getDependencies()
+    {
+        return array(
+            UserFixtures::class,
+        );
     }
 }
