@@ -3,11 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email que vous avez indiqué est déjà utilisé"
+ *     )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -23,11 +29,18 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage= "Votre mot de passe doit avoir au moins 8 caractères")
+     * @Assert\EqualTo(propertyPath ="confirm_password", message="Les champs de mot de passe et de confirmation du mot de passe doivent être identiques")
      */
     private $password;
 
     /**
+     * @Assert\EqualTo(propertyPath = "password",message ="Les champs de mot de passe et de confirmation du mot de passe doivent être identiques")
+     */
+    public  $confirm_password;
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -122,21 +135,9 @@ class User
         return $this;
     }
 
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     public function getRegisterDate(): ?\DateTimeInterface
     {
-        return $this->registerDate;
+        return $this -> registerDate;
     }
 
     public function setRegisterDate(\DateTimeInterface $registerDate): self
@@ -240,5 +241,20 @@ class User
         $this->corporation = $corporation;
 
         return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getRoles(): ?array
+    {
+        return ['ROLE_USER'];
     }
 }

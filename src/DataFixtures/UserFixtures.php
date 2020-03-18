@@ -5,28 +5,95 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
+use App\Entity\Event;
+use App\Entity\InternshipOffer;
+use Faker\Provider\DateTime;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserFixtures extends Fixture
 {
     public const USER_REFERENCE = 'user';
 
-    public function load(ObjectManager $manager)
-    {
+    public function load(ObjectManager $manager) {
+
+        $faker = \Faker\Factory::create('fr_FR');
+
+        //Créer des évènements
         for ($i=1; $i<=10; $i++)
-        {
-            $user = new User();
-            $user ->setUsername("vieilleLoutre n°$i")
-                  ->setFirstName("Jeff n°$i")
-                  ->setLastName("Lastname n°$i")
-                  ->setEmail("jLastnamen°$i@ec-m.fr")
-                  ->setPassword("password n°$i")
-                  ->setCity("city n°$i")
-                  ->setCorporation("corporation du n°$i")
-                  ->setJob("job du n°$i")
-                  ->setPromo($i + 1985)
-                  ->setRegisterDate(new \DateTime())
-                  ->setEntered(new \DateTime())
-                  ->setAssoPosition("loutre énervée n°$i");
+        {   $user = new User();
+            $user ->setUsername($faker ->unique()->userName())
+                ->setFirstName($faker->unique() ->firstName())
+                ->setLastName($faker ->LastName())
+                ->setEmail($faker ->email())
+                ->setPassword($faker -> password())
+                ->setCity($faker ->city())
+                ->setCorporation($faker ->company())
+                ->setJob($faker ->jobTitle())
+                ->setPromo($faker ->year())
+                ->setRegisterDate($faker ->dateTime())
+                ->setEntered($faker ->dateTime())
+                ->setAssoPosition($faker ->jobTitle());
+
             $manager->persist($user);
+
+            $evenement = new Event();
+            $evenement  ->setName($faker ->sentence())
+                        ->setDescription($faker ->paragraph())
+                        ->setLocation($faker->city())
+                        ->setStart($faker ->dateTimeThisYear())
+                        ->setEnd($faker ->dateTimeThisYear())
+                        ->setAddedBy($user);
+
+            $manager ->persist($evenement);
+        }
+
+        for($i = 1; $i<=30; $i++){
+            $user = new User();
+            $user ->setUsername($faker ->unique()->userName())
+                ->setFirstName($faker->unique() ->firstName())
+                ->setLastName($faker ->LastName())
+                ->setEmail($faker ->email())
+                ->setPassword($faker -> password())
+                ->setCity($faker ->city())
+                ->setCorporation($faker ->company())
+                ->setJob($faker ->jobTitle())
+                ->setPromo($faker ->year())
+                ->setRegisterDate($faker ->dateTime())
+                ->setEntered($faker ->dateTime())
+                ->setAssoPosition($faker ->jobTitle());
+
+            $manager->persist($user);
+
+        }
+        //Créer des offres de stage
+        for ($i=1; $i<=10; $i++)
+        {   $user = new User();
+            $user ->setUsername($faker ->unique()->userName())
+                ->setFirstName($faker->unique() ->firstName())
+                ->setLastName($faker ->LastName())
+                ->setEmail($faker ->email())
+                ->setPassword($faker -> password())
+                ->setCity($faker ->city())
+                ->setCorporation($faker ->company())
+                ->setJob($faker ->jobTitle())
+                ->setPromo($faker ->year())
+                ->setRegisterDate($faker ->dateTime())
+                ->setEntered($faker ->dateTime())
+                ->setAssoPosition($faker ->jobTitle());
+
+            $manager->persist($user);
+
+            $offer = new InternshipOffer();
+            $offer  ->setAddedBy($user)
+                    ->setTitle($faker ->jobTitle())
+                    ->setDescription($faker ->paragraph())
+                    ->setContact($faker ->phoneNumber())
+                    ->setStartingDate($faker->dateTimeThisMonth())
+                    ->setFile($faker ->url())
+                    ->setCompany($faker ->company())
+                    ->setCity($faker->city())
+                    ->setOnline(true);
+
+            $manager ->persist($offer);
         }
         $manager->flush();
 

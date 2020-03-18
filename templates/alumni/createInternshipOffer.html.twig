@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formEvent 'bootstrap_4_layout.html.twig' %}
+{% block content %}
+    <h3> Ajoutez une offre d'emploi ! </h3>
+
+    {{ form_start(formEvent) }}
+
+    {{ form_row(formEvent.name, {'attr':{'placeholder':"Donnez un nom à l'évènement"}}) }}
+    {{ form_row(formEvent.location, {'attr':{'placeholder':"Où se déroule l'évènement"}}) }}
+    {{ form_row(formEvent.description, {'attr':{'placeholder':"description de l'évènement"}}) }}
+    {{ form_row(formEvent.start) }}
+    {{ form_row(formEvent.end) }}
+
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer
+        {%  else %}
+            Ajouter l'évènement
+        {% endif %}
+    </button>
+    {{ form_end(formEvent) }}
+
+{% endblock %}
+

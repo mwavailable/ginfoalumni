@@ -2,6 +2,17 @@
 
 {% block title %}Hello AlumniController!{% endblock %}
 
-{% block body %}
+{% block content %}
     <h3> Vous trouverez ici l'ensemble des évènements du GInfo Centrale Marseille </h3>
+
+    <events>
+        <div class="table">
+            {% for event in events %}
+                    <h2>{{ event.name}}</h2>
+                    <hr>
+                    <h3> {{ event.description }}{{ event.location }}</h3>
+            {% endfor %}
+        </div>
+    </events>
+
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h3> Vous trouverez ici l'ensemble des offres disponibles </h3>
+
+    <intershipOffers>
+        {% for internshipOffer in internshipOffers %}
+            <h4> {{ internshipOffer.title }}</h4>
+            <div class="content">
+                {{ internshipOffer.description }}
+                {{ internshipOffer.city }}
+                {{ internshipOffer.company }}
+            </div>
+        {% endfor %}
+    </intershipOffers>
+{% endblock %}

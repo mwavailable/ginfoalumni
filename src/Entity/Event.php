@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -20,11 +21,13 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, max= 255, minMessage= "Choisissez un nom avec au moins {{limit}} caractères", maxMessage = "Choisissez un nom avec moins de {{limit}} caractères")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10, minMessage= "Choisissez un nom avec au moins {{limit}} caractères")
      */
     private $description;
 

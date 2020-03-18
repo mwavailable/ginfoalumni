@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AlumniController!{% endblock %}
+{% block title %} Hello AlumniController! {% endblock %}
 
-{% block body %}
+{% block content %}
     <h3> Vous trouverez ici l'ensemble des alumni du GInfo Centrale Marseille </h3>
+
+    <users>
+        <div class="row">
+            {% for user in users %}
+                {{ user.firstName }}
+                {{ user.lastName }}
+                {{ user.email }}
+                {{ user.corporation }}
+                {{ user.job }}
+                {{ user.promo }}
+            {% endfor %}
+        </div>
+    </users>
+
 {% endblock %}
