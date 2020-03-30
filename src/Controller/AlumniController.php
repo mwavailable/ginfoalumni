@@ -13,8 +13,33 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\EvenementType;
 use App\Form\InternshipOfferType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+/**
+ * @IsGranted("ROLE_USER")
+ */
+
 class AlumniController extends AbstractController
 {
+    /**
+     * @Route("/", name="default")
+     */
+    public function index()
+    {
+        if($this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('home');
+        }
+    }
+
+    /**
+     * @Route("/home",name="home")
+     */
+        public function home(){
+            return $this -> render('alumni/home.html.twig',[
+                'title' => "Bienvenue sur le site des Alumni du Ginfo"
+            ]);
+        }
+
     /**
      * @Route("/annuaire", name="annuaire")
      */
@@ -28,11 +53,17 @@ class AlumniController extends AbstractController
     }
 
     /**
-     * @Route("/",name="home")
+     * @Route("annuaire/{id}/details", name="user_details")
      */
-    public function home(){
-        return $this -> render('alumni/home.html.twig',[
-            'title' => "Bienvenue sur le site des Alumni du Ginfo"
+    public function details($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+
+        $user = $repo->find($id);
+
+        return $this->render('alumni/details.html.twig', [
+            'user' => $user,
+            'id' => $id
         ]);
     }
 
@@ -55,8 +86,21 @@ class AlumniController extends AbstractController
         $repo = $this ->getDoctrine()->getRepository(InternshipOffer::class);
         $internshipOffers = $repo->findAll();
         return $this->render('alumni/internshipOffer.html.twig',[
-            'controller_name' =>'AlumniController',
-            'internshipOffers' => $internshipOffers
+        'controller_name' =>'AlumniController',
+        'internshipOffers' => $internshipOffers
+    ]);
+    }
+    /**
+     * @Route("Offre_de_stage/{id}/details", name="internshipOffer_details")
+     */
+    public function moreInfo($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(InternshipOffer::class);
+
+        $internshipOffer = $repo->find($id);
+
+        return $this->render('alumni/more_info.html.twig', [
+            'internshipOffer' => $internshipOffer,
         ]);
     }
 
@@ -80,7 +124,7 @@ class AlumniController extends AbstractController
             $manager->persist($evenement);
             $manager->flush();
 
-            return $this->redirectToRoute('/evenements');
+            return $this->redirectToRoute('evenements');
                 }
 
         return $this -> render('alumni/CreateEvenements.html.twig', [
@@ -97,7 +141,7 @@ class AlumniController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
 
         if(!$internshipOffer){
-            $internshipOffer = new Event();
+            $internshipOffer = new InternshipOffer();
         }
 
         $form = $this ->createForm(InternshipOfferType::class, $internshipOffer);
@@ -108,7 +152,7 @@ class AlumniController extends AbstractController
             $manager->persist($internshipOffer);
             $manager->flush();
 
-            return $this->redirectToRoute('/Offre_de_stage/{id}');
+            return $this->redirectToRoute('internshipOffer');
         }
 
         return $this -> render('alumni/CreateInternshipOffer.html.twig', [

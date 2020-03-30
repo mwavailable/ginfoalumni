@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <article>
+        <div class = "card">
+            <div class="header bg-indigo">
+                <h2>{{internshipOffer.title}}</h2>
+            </div>
+            <div class="body">
+                <div class="content">
+                    <table class="table table-hover">
+                        <tr>
+                            <br> Au sein de  {{ internshipOffer.company }}  à {{  internshipOffer.city }}</br>
+                            <br> Commence le {{ internshipOffer.startingDate |date('d/m/Y') }} </br>
+                            <strong>Description : </strong> <br>  {{ internshipOffer.description }} </br>
+                            <br> Plus d'infos à cette adresse: {{  internshipOffer.file }} </br>
+                            <br> Contact {{ internshipOffer.contact }} </br>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </article>
+{% endblock %}

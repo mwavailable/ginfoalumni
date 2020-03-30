@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <article>
+        <div class = "card">
+            <div class="header bg-indigo">
+                <h2>{{user.firstName}} {{ user.lastName }}</h2>
+            </div>
+            <div class="body">
+                <div class="content">
+                        <table class="table table-hover">
+                            <tr>
+                                <br> email : {{ user.email }} </br>
+                                <br> Promo {{ user.promo }} </br>
+                                <hr>
+                                <br> Vit à {{ user.city }} </br>
+                                <br> Travaille en tant que {{ user.job }} au sein de {{ user.corporation }} </br>
+                                <hr>
+                                <br> Etait au GInfo en tant que {{ user.assoPosition }} </br>
+                                <br> Est rentré au GInfo le : {{ user.entered | date('d/m/Y') }} </br>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+
+        </div>
+
+    </article>
+{% endblock %}

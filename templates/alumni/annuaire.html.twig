@@ -6,16 +6,34 @@
     <h3> Vous trouverez ici l'ensemble des alumni du GInfo Centrale Marseille </h3>
 
     <users>
-        <div class="row">
-            {% for user in users %}
-                {{ user.firstName }}
-                {{ user.lastName }}
-                {{ user.email }}
-                {{ user.corporation }}
-                {{ user.job }}
-                {{ user.promo }}
-            {% endfor %}
+        <div>
+            <div class="card">
+                <div class="body table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th> Prénom </th>
+                            <th> Nom </th>
+                            <th>Job</th>
+                            <th> Promo </th>
+                        </tr>
+
+
+                        {%  for user in users %}
+                            <tr>
+                                <td {% if app.request.pathInfo starts with "/annuaire/{id}/details" %} {% endif %}>
+                                    <a href={{ path('user_details', {id: user.id}) }} id="link_add">
+                                        {{ user.firstName }}
+                                    </a>
+                                </td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.job }}</td>
+                                <td>{{ user.promo }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
         </div>
     </users>
-
 {% endblock %}

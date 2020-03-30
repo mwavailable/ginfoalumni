@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme formEvent 'bootstrap_4_layout.html.twig' %}
+{% form_theme formInternshipOffer 'bootstrap_4_layout.html.twig' %}
 {% block content %}
     <h3> Ajoutez une offre d'emploi ! </h3>
 
-    {{ form_start(formEvent) }}
+    {{ form_start(formInternshipOffer) }}
 
-    {{ form_row(formEvent.name, {'attr':{'placeholder':"Donnez un nom à l'évènement"}}) }}
-    {{ form_row(formEvent.location, {'attr':{'placeholder':"Où se déroule l'évènement"}}) }}
-    {{ form_row(formEvent.description, {'attr':{'placeholder':"description de l'évènement"}}) }}
-    {{ form_row(formEvent.start) }}
-    {{ form_row(formEvent.end) }}
+    {{ form_row(formInternshipOffer.title, {'attr':{'placeholder':"Quel poste à pourvoir?"}}) }}
+    {{ form_row(formInternshipOffer.description, {'attr':{'placeholder':"Décrivez le poste"}}) }}
+    {{ form_row(formInternshipOffer.city, {'attr':{'placeholder':"Dans quelle ville?"}}) }}
+    {{ form_row(formInternshipOffer.company, {'attr':{'placeholder':"Dans quelle entreprise?"}}) }}
+    {{ form_row(formInternshipOffer.contact, {'attr':{'placeholder':"Qui contacter si intéressé?"}}) }}
+    {{ form_row(formInternshipOffer.file, {'attr':{'placeholder':"Ajoutez une url"}}) }}
+    {{ form_row(formInternshipOffer.startingDate) }}
 
     <button type="submit" class="btn btn-success">
         {% if editMode %}
             Enregistrer
         {%  else %}
-            Ajouter l'évènement
+            Ajouter l'offre
         {% endif %}
     </button>
-    {{ form_end(formEvent) }}
+    {{ form_end(formInternshipOffer) }}
 
 {% endblock %}
 

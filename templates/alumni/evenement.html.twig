@@ -6,13 +6,31 @@
     <h3> Vous trouverez ici l'ensemble des évènements du GInfo Centrale Marseille </h3>
 
     <events>
-        <div class="table">
-            {% for event in events %}
-                    <h2>{{ event.name}}</h2>
-                    <hr>
-                    <h3> {{ event.description }}{{ event.location }}</h3>
+        <div>
+            {%  for event in events %}
+                <div class="card">
+                    <div class="header bg-indigo">
+                        <h2>{{event.Name}} </h2>
+                    </div>
+                    <div class="body table-responsive">
+                        <table class="table table-striped">
+                                <tr>
+                                    <br>à l'adresse: {{ event.location}}</br>
+                                    <br>le {{ event.start | date('d/m/Y')}} de {{ event.start | date('H:m') }} à {{ event.end | date('H:m') }}</br>
+                                    <br>{{ event.description }}</br>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </events>
+
+    <button>
+        {% if app.request.pathInfo starts with "/evenements/new" %}class="active"{% endif %}
+        <a href={{ path('create_evenements') }} id="link_add">
+            <button class="btn-primary">Ajouter un évènement</button>
+        </a>
+    </button>
 
 {% endblock %}

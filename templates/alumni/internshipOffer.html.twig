@@ -4,13 +4,40 @@
     <h3> Vous trouverez ici l'ensemble des offres disponibles </h3>
 
     <intershipOffers>
-        {% for internshipOffer in internshipOffers %}
-            <h4> {{ internshipOffer.title }}</h4>
-            <div class="content">
-                {{ internshipOffer.description }}
-                {{ internshipOffer.city }}
-                {{ internshipOffer.company }}
+        <div>
+            <div class="card">
+                <div class="body table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th> Job </th>
+                            <th> Entreprise </th>
+                            <th> Début </th>
+                        </tr>
+
+
+                        {%  for offer in internshipOffers %}
+                            <tr>
+                                <td {% if app.request.pathInfo starts with "Offre_de_stage/{id}/details" %} {% endif %}>
+                                    <a href={{ path('internshipOffer_details', {id: offer.id}) }} id="link_add">
+                                        {{ offer.title }}
+                                    </a>
+                                </td>
+                                <td>{{ offer.company}}</td>
+                                <td>{{ offer.startingDate | date('d/m/Y') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
             </div>
-        {% endfor %}
+        </div>
     </intershipOffers>
+
+    <button>
+        {% if app.request.pathInfo starts with "/Offre_de_stage/new" %}class="active"{% endif %}
+        <a href={{ path('create_internshipOffer') }} id="link_add">
+            <button class="btn-primary">Ajouter une offre</button>
+        </a>
+    </button>
+
 {% endblock %}

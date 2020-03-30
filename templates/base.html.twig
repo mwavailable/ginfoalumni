@@ -61,7 +61,7 @@
             <ul class="list">
                 <li class="header">Menu</li>
                 <li {% if app.request.pathInfo starts with "/evenements" %}class="active"{% endif %}>
-                    <a href={{ path('create_evenements') }} id="link_add">
+                    <a href={{ path('evenements') }} id="link_add">
                         <i class="material-icons">add</i> <span>Evènements</span>
                     </a>
                 </li>

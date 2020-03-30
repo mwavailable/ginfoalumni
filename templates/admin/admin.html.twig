@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <h1>Ajouter des administrateurs</h1>
+
+
+    <div>
+        <div class="card">
+            <div class="body table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <th> Nom </th>
+                        <th> Prénom </th>
+                        <th>Admin</th>
+                        <th> Destitué </th>
+                    </tr>
+
+
+                    {%  for user in users %}
+                        {% if user != userOnline %}
+                            <tr>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{% if user.roles[0] == "ROLE_ADMIN"%}
+                                            <i data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Administrateur" class="material-icons btn-admin">verified_user</i>
+                                    {% endif %}
+                                </td>
+                                <td>{% if user.roles[0] == "ROLE_ADMIN"%}
+                                        <a href="{{ path('block_admin',{'id':user.id}) }}">
+                                            <i  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Destituer" class="material-icons btn-ban">block</i>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('name_admin',{'id':user.id}) }}">
+                                            <i  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Nommer administrateur" class="material-icons btn-name" >verified_user</i>
+                                        </a>
+                                    {% endif %}</td>
+                            </tr>
+                        {% endif %}
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}
