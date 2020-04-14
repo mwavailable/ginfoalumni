@@ -114,6 +114,9 @@ class AlumniController extends AbstractController
         if(!$evenement){
             $evenement = new Event();
         }
+        else {
+            $this->denyAccessUnlessGranted('EVENT_EDIT',$evenement);
+        }
 
         $form = $this ->createForm(EvenementType::class, $evenement);
 
@@ -124,6 +127,11 @@ class AlumniController extends AbstractController
             $manager->persist($evenement);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                'Votre événement a bien été enregistré'
+            );
+
             return $this->redirectToRoute('evenements');
                 }
 
@@ -131,6 +139,23 @@ class AlumniController extends AbstractController
             'formEvent' => $form -> createView(),
             'editMode' => $evenement -> getId() !==null
         ]);
+    }
+
+    /**
+     * @Route("evenements/{id}/delete", name="event_delete")
+     * @Security("is_granted('EVENT_DELETE', event)")
+     */
+    public function eventDelete(Event $event)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($event);
+        $manager->flush();
+        $this->addFlash(
+            'warning',
+            'Votre événement a été supprimé.'
+        );
+        return $this->redirectToRoute('home');
+
     }
 
     /**
