@@ -3,27 +3,31 @@
 {% form_theme formRegistration 'bootstrap_3_layout.html.twig' %}
 
 {% block content %}
-
-    <h1>S'inscrire</h1>
-
-    {{ form_start(formRegistration) }}
-
-    {{ form_row(formRegistration.username, {'label':'Nom d\'utilisateur', 'attr':{'placeholder':"Choisissez un nom d'utilisateur"}})}}
-    {{ form_row(formRegistration.password, {'label':'Mot de passe', 'attr':{'placeholder':"Choisissez un mot de passe"}})}}
-    {{ form_row(formRegistration.confirm_password, {'label':'Confirmer le mot de passe', 'attr':{'placeholder':"Confirmez votre mot de passe"}})}}
-    {{ form_row(formRegistration.email, {'label':'Adresse email', 'attr':{'placeholder':"Votre adresse email"}})}}
-    {{ form_row(formRegistration.firstName, {'label':'Prénom', 'attr':{'placeholder':"Votre prénom"}})}}
-    {{ form_row(formRegistration.lastName, {'label':'Nom', 'attr':{'placeholder':"Votre nom de famille"}})}}
-    {{ form_row(formRegistration.promo, {'label':'Promotion', 'attr':{'placeholder':"Quand avez-vous été diplomé?"}})}}
-    {{ form_row(formRegistration.assoPosition, {'label':'Position dans l\'association', 'attr':{'placeholder':"Quelle poste occupiez-vous au GInfo?"}})}}
-    {{ form_row(formRegistration.city, {'label':'Ville de résidence', 'attr':{'placeholder':"Où vivez-vous?"}})}}
-    {{ form_row(formRegistration.entered, {'label':'Date d\'entrée dans l\'associtation', 'attr':{'placeholder':"Quand avez-vous rejoint le GInfo?"}})}}
-    {{ form_row(formRegistration.job, {'label':'Emploi', 'attr':{'placeholder':"Que faites-vous actuellement?"}})}}
-    {{ form_row(formRegistration.corporation, {'label':'Entreprise', 'attr':{'placeholder':"Dans quelle entreprise travaillez-vous?"}})}}
-
-    <button type="submit" class="btn btn-success">
-            S'inscrire
-    </button>
-    {{ form_end(formRegistration)}}
+    <div class="signup-box">
+        <div class="card">
+            <div class="header bg-indigo">
+                <h2>Inscription sur le site</h2>
+            </div>
+            {{ form_start(formRegistration) }}
+            <div class="body">
+                {{ form_row(formRegistration.username, {'label':'Nom d\'utilisateur', 'attr':{'placeholder':"Choisissez un nom d'utilisateur"}})}}
+                {{ form_row(formRegistration.password, {'label':'Mot de passe', 'attr':{'placeholder':"Choisissez un mot de passe"}})}}
+                {{ form_row(formRegistration.confirm_password, {'label':'Confirmer le mot de passe', 'attr':{'placeholder':"Confirmez votre mot de passe"}})}}
+                {{ form_row(formRegistration.email, {'label':'Adresse email', 'attr':{'placeholder':"Votre adresse email"}})}}
+                {{ form_row(formRegistration.firstName, {'label':'Prénom', 'attr':{'placeholder':"Votre prénom"}})}}
+                {{ form_row(formRegistration.lastName, {'label':'Nom', 'attr':{'placeholder':"Votre nom de famille"}})}}
+                {{ form_row(formRegistration.promo, {'label':'Promotion', 'attr':{'placeholder':"Quand avez-vous été diplomé?"}})}}
+                {{ form_row(formRegistration.assoPosition, {'label':'Position dans l\'association', 'attr':{'placeholder':"Quelle poste occupiez-vous au GInfo?"}})}}
+                {{ form_row(formRegistration.city, {'label':'Ville de résidence', 'attr':{'placeholder':"Où vivez-vous?"}})}}
+                {{ form_row(formRegistration.entered, {'label':'Date d\'entrée dans l\'associtation', 'attr':{'placeholder':"Quand avez-vous rejoint le GInfo?"}})}}
+                {{ form_row(formRegistration.job, {'label':'Emploi', 'attr':{'placeholder':"Que faites-vous actuellement?"}})}}
+                {{ form_row(formRegistration.corporation, {'label':'Entreprise', 'attr':{'placeholder':"Dans quelle entreprise travaillez-vous?"}})}}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success waves-effect btn-card-footer"><i class="material-icons">save</i><span>Inscription !</span></button>
+            </div>
+        </div>
+        {{  form_end(formRegistration) }}
+    </div>
 
 {% endblock %}

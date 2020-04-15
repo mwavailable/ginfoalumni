@@ -1,17 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Connexion !</h1>
-
-    <form action="{{ path('security_login') }}" method="post">
-        <div class="form-group">
-            <input placeholder = "Adresse email" required name="_username" type="text" class="form-control">
+    <div class="signup-box">
+        <div class="card">
+            <div class="header bg-indigo">
+                <h2>Connexion</h2>
+             </div>
+            <div class="body">
+                {% if error %}
+                    <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <form action="{{ path('security_login') }}" method="post">
+                    <div class="form-group">
+                        <input placeholder = "Adresse email" required name="_email" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input placeholder = "Mot de passe" required name="_password" type="password" class="form-control">
+                    </div>
+                    <div class="col text-center">
+                        <div class="form_group">
+                            <button type="submit" class="btn btn-success col-lg-4 col-lg-offset-1">Connexion</button>
+                        </div>
+                        <a href="{{ path('security_registration') }}" class="btn btn-warning col-lg-5 col-lg-offset-1">Créer un compte</a>
+                    </div>
+                </form>
+                <div class="col text-center" style="display:inline"></div>
+                <div class="col text-center">
+                    <a href="{{ path('user_login') }}" class="btn btn-primary">J'ai un compte MyCentraleAssos</a>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <input placeholder = "Mot de passe" required name="_password" type="password" class="form-control">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Se connecter</button>
-        </div>
-    </form>
+    </div>
 {% endblock %}

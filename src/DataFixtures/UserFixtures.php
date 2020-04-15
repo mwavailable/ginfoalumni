@@ -9,9 +9,15 @@ use App\Entity\Event;
 use App\Entity\InternshipOffer;
 use Faker\Provider\DateTime;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 class UserFixtures extends Fixture
 {
     public const USER_REFERENCE = 'user';
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
 
     public function load(ObjectManager $manager) {
 
@@ -24,7 +30,6 @@ class UserFixtures extends Fixture
                 ->setFirstName($faker->unique() ->firstName())
                 ->setLastName($faker ->LastName())
                 ->setEmail($faker ->email())
-                ->setPassword($faker -> password())
                 ->setCity($faker ->city())
                 ->setCorporation($faker ->company())
                 ->setJob($faker ->jobTitle())
@@ -32,6 +37,9 @@ class UserFixtures extends Fixture
                 ->setRegisterDate($faker ->dateTime())
                 ->setEntered($faker ->dateTime())
                 ->setAssoPosition($faker ->jobTitle());
+
+            $password = $this->encoder->encodePassword($user, $faker->password());
+            $user->setPassword($password);
 
             $manager->persist($user);
 
@@ -52,7 +60,6 @@ class UserFixtures extends Fixture
                 ->setFirstName($faker->unique() ->firstName())
                 ->setLastName($faker ->LastName())
                 ->setEmail($faker ->email())
-                ->setPassword($faker -> password())
                 ->setCity($faker ->city())
                 ->setCorporation($faker ->company())
                 ->setJob($faker ->jobTitle())
@@ -60,6 +67,9 @@ class UserFixtures extends Fixture
                 ->setRegisterDate($faker ->dateTime())
                 ->setEntered($faker ->dateTime())
                 ->setAssoPosition($faker ->jobTitle());
+
+            $password = $this->encoder->encodePassword($user, $faker->password());
+            $user->setPassword($password);
 
             $manager->persist($user);
 
@@ -71,7 +81,6 @@ class UserFixtures extends Fixture
                 ->setFirstName($faker->unique() ->firstName())
                 ->setLastName($faker ->LastName())
                 ->setEmail($faker ->email())
-                ->setPassword($faker -> password())
                 ->setCity($faker ->city())
                 ->setCorporation($faker ->company())
                 ->setJob($faker ->jobTitle())
@@ -79,6 +88,9 @@ class UserFixtures extends Fixture
                 ->setRegisterDate($faker ->dateTime())
                 ->setEntered($faker ->dateTime())
                 ->setAssoPosition($faker ->jobTitle());
+
+            $password = $this->encoder->encodePassword($user, $faker->password());
+            $user->setPassword($password);
 
             $manager->persist($user);
 
