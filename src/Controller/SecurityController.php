@@ -63,8 +63,6 @@ class SecurityController extends AbstractController
                     $user->setCorporation('ECM');
                     $user->setJob('Etudiant');
                     $user->setPromo(2020);
-                    $user->setRegisterDate();
-                    $user->setEntered();
                     $user->setAssoPosition('Membre');
 
                     $manager->persist($user);
@@ -78,7 +76,7 @@ class SecurityController extends AbstractController
                 $session->set('_security_main', serialize($token));
 
                 $event = new InteractiveLoginEvent($request, $token);
-                $dispatcher->dispatch("security.interactive_login", $event);
+                $dispatcher->dispatch( $event,"security.interactive_login");
 
             }
 

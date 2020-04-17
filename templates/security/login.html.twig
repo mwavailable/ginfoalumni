@@ -8,11 +8,11 @@
              </div>
             <div class="body">
                 {% if error %}
-                    <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="alert alert-warning">Votre email ou votre mot de passe de correspond pas</div>
                 {% endif %}
                 <form action="{{ path('security_login') }}" method="post">
                     <div class="form-group">
-                        <input placeholder = "Adresse email" required name="_email" type="text" class="form-control">
+                        <input placeholder = "Adresse email" required name="_username" type="text" class="form-control">
                     </div>
                     <div class="form-group">
                         <input placeholder = "Mot de passe" required name="_password" type="password" class="form-control">

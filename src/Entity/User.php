@@ -23,7 +23,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
 
@@ -50,7 +50,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $registerDate;
 
@@ -80,7 +80,7 @@ class User implements UserInterface
     private $city;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $entered;
 
@@ -248,7 +248,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles = ['ROLE_USER'];
 
         return array_unique($roles);
     }
