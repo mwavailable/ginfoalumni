@@ -172,6 +172,8 @@ class AlumniController extends AbstractController
         $form = $this ->createForm(InternshipOfferType::class, $internshipOffer);
 
         $form ->handleRequest($request);
+        $internshipOffer ->setOnline(true)
+                         ->setAddedBy($this->getUser());
 
         if ($form ->isSubmitted() && $form->isValid()) {
             $manager->persist($internshipOffer);
